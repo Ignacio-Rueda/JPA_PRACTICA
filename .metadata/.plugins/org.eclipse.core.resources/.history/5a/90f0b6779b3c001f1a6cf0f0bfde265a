@@ -1,0 +1,5 @@
+package com.linkedin.learning.otrareunionmas.dao;
+
+public class ReunionDao extends AbstractDao<T> {
+
+}

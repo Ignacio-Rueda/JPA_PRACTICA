@@ -1,0 +1,70 @@
+package com.linkedin.learning.otrareunionmas.dao;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+
+import com.linkedin.learning.otrareunionmas.utiles.EntityManagerUtil;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
+
+public abstract class AbstractDao<T> implements Dao<T> {
+	
+	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
+	
+	private Class<T> clazz;
+
+	@Override
+	public Optional<T> get(long id) {
+		return Optional.ofNullable(entityManager.find(clazz, id)); //Utilizamos el nullable para asegurarnos de que se maneja bien, en caso de que no encuentre nada.
+	}
+
+	@Override
+	public List<T> getAll() {
+		String qlString = "FROM" + clazz.getName();
+		Query query = entityManager.createQuery(qlString);
+		return query.getResultList();
+	}
+
+	@Override
+	public void save(T t) {
+		
+	}
+
+	@Override
+	public void update(T t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(T t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setClazz(Class<T> clazz) {
+		this.clazz = clazz;
+	}
+	
+	private void executeInsideTransaction(Consumer<EntityManager> action) {
+		//Pedimos una transacción al EntityManager
+		EntityTransaction tx = entityManager.getTransaction();
+		try {
+			//Intentamos inicializarla
+			tx.begin();
+			//Ejecutamos la acción de turno
+			action.accept(entityManager);
+			//Comiteamos la transacción
+			tx.commit();
+		}catch(RuntimeException e) {
+			//Si hay algún problema, deshacemos
+			tx.rollback();
+			//Lanzamos una excepción
+			throw e;
+		}
+	}
+	
+}

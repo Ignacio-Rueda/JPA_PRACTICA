@@ -1,0 +1,50 @@
+package com.linkedin.learning.otrareunionmas.dao;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.linkedin.learning.otrareunionmas.utiles.EntityManagerUtil;
+
+import jakarta.persistence.EntityManager;
+
+public abstract class AbstractDao<T> implements Dao<T> {
+	
+	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
+	
+	private Class<T> clazz;
+
+	@Override
+	public Optional<T> get(long id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+	@Override
+	public List<T> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(T t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(T t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(T t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setClazz(Class<T> clazz) {
+		this.clazz = clazz;
+	}
+	
+}
