@@ -1,0 +1,16 @@
+package com.linkedin.learning.otrareunionmas.utiles;
+
+
+public class EntityManagerUtil {
+	public static EntityManager getEntityManager() {
+	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("OtraReunionMas");
+		//EntityManager factory = (EntityManager) Persistence.createEntityManagerFactory("OtraReunionMas");
+		//EntityManager manager = ((EntityManagerFactory) factory).createEntityManager();
+		//return manager;
+	}
+	
+	public static void main(String[]args) {
+		EntityManager manager = EntityManagerUtil.getEntityManager();
+		System.out.println("EntityManager class ==>"+manager.getClass().getCanonicalName());
+	}
+}
