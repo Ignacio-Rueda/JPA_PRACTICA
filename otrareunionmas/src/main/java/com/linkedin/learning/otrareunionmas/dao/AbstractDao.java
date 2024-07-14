@@ -23,7 +23,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
 
 	@Override
 	public List<T> getAll() {
-		String qlString = "FROM" + clazz.getName();
+		String qlString = "FROM " + clazz.getName();
 		Query query = entityManager.createQuery(qlString);
 		return query.getResultList();
 	}
