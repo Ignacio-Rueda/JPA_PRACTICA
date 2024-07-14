@@ -18,13 +18,13 @@ public abstract class AbstractDao<T> implements Dao<T> {
 
 	@Override
 	public Optional<T> get(long id) {
-		return Optional.ofNullable(entityManager.find(clazz, id)); //Utilizamos el nullable para asegurarnos de que se maneja bien, en caso de que no encuentre nada.
+		return Optional.ofNullable(getEntityManager().find(clazz, id)); //Utilizamos el nullable para asegurarnos de que se maneja bien, en caso de que no encuentre nada.
 	}
 
 	@Override
 	public List<T> getAll() {
 		String qlString = "FROM " + clazz.getName();
-		Query query = entityManager.createQuery(qlString);
+		Query query = getEntityManager().createQuery(qlString);
 		return query.getResultList();
 	}
 
@@ -56,12 +56,12 @@ public abstract class AbstractDao<T> implements Dao<T> {
 	 */
 	private void executeInsideTransaction(Consumer<EntityManager> action) {
 		//Pedimos una transacción al EntityManager
-		EntityTransaction tx = entityManager.getTransaction();
+		EntityTransaction tx = getEntityManager().getTransaction();
 		try {
 			//Intentamos inicializarla
 			tx.begin();
 			//Ejecutamos la acción de turno
-			action.accept(entityManager);
+			action.accept(getEntityManager());
 			//Comiteamos la transacción
 			tx.commit();
 		}catch(RuntimeException e) {
@@ -71,5 +71,13 @@ public abstract class AbstractDao<T> implements Dao<T> {
 			throw e;
 		}
 	}
+	/**
+	 * Para poder utilizarlo desde ReunionDao y no tener que cambiar la visibilidad.
+	 * @return
+	 */
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
 	
 }
