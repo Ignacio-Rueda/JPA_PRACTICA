@@ -25,12 +25,14 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="ejemplo.ejemplo.unejemplomas"/>
 			<item value="ejemplo.ejemplo.ejemplo.ejemplo"/>
 		</list>
 		<list key="groupId">
 			<item value="ejemplo.ejemplo"/>
 		</list>
 		<list key="artifactId">
+			<item value="unejemplomas"/>
 			<item value="ejemplo.ejemplo"/>
 		</list>
 		<list key="projectNameTemplate">

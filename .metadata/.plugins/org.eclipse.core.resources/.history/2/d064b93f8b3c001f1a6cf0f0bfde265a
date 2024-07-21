@@ -1,7 +1,0 @@
-package com.linkedin.learning.otrareunionmas.dominio;
-import javax.persistence.Entity;
-
-@Entity
-public class Reunion {
-
-}
